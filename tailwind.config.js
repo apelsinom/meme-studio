@@ -9,7 +9,7 @@ const tailwindConfig = {
       },
     },
   },
-  plugins: [require('@tailwindcss/line-clamp')],
+  plugins: [],
 }
 
 export default tailwindConfig

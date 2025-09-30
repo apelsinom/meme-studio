@@ -2,11 +2,7 @@
   "compilerOptions": {
     "target": "ESNext",
     "module": "ESNext",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -27,16 +23,6 @@
       }
     ]
   },
-  "include": [
-    "app",
-    "next-env.d.ts",
-    "src",
-    ".next/types/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules",
-    ".next",
-    "build",
-    "out"
-  ]
+  "include": ["app", "next-env.d.ts", "src", ".next/types/**/*.ts"],
+  "exclude": ["node_modules", ".next", "build", "out"]
 }
