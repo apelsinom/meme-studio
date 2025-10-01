@@ -18,7 +18,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <StoreProvider>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <header className="bg-background border-b">
-              <div className="flex justify-between items-center max-w-[1200px] w-full mx-auto px-4 py-3">
+              <div className="flex justify-between items-center max-w-[1200px] w-full mx-auto py-3">
                 <Link href="/" className="flex items-center gap-2">
                   <span className="text-2xl">🐾</span>
                   <h1 className="font-bold text-xl">Pet-Meme Studio</h1>
@@ -46,7 +46,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               </div>
             </header>
 
-            <main className="flex-1 max-w-[1200px] w-full mx-auto px-4 py-6">
+            <main className="flex-1 max-w-[1200px] w-full mx-auto">
               <Suspense fallback={<Spinner />}>{children}</Suspense>
             </main>
 

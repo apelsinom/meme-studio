@@ -1,41 +1,21 @@
-import { PixabayDTO, PixabayImage, TMeme } from '@/shared/types/types'
-import Image from 'next/image'
+'use client'
+import { useRouter } from 'next/navigation'
 
-export const revalidate = false
+const topics = ['dogs', 'birds', 'cats', 'rabbits']
 
-export default async function GalleryPage() {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_PIXABAY_API_URL}?key=${process.env.NEXT_PUBLIC_PIXABAY_API_KEY}&per_page=12`,
-    { cache: 'force-cache' },
-  )
-
-  if (!res.ok) {
-    throw new Error('Failed to fetch photos')
-  }
-  const data: PixabayDTO = await res.json()
-  const photos: TMeme[] = data.hits.map((hit: PixabayImage) => ({
-    id: hit.id.toString(),
-    title: hit.tags,
-    image: hit.previewURL,
-  }))
-
+export default function GalleryPage() {
+  const router = useRouter()
   return (
-    <div>
-      <h1 className="text-2xl font-bold mb-4">Галерея мемов</h1>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        {photos.map(photo => (
-          <div key={photo.id} className="border rounded-lg shadow overflow-hidden">
-            <Image
-              width={100}
-              height={100}
-              src={photo.image}
-              alt={photo.title}
-              className="w-full aspect-square"
-            />
-            <div className="p-1 text-sm line-clamp-3">{photo.title}</div>
-          </div>
-        ))}
-      </div>
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-6 p-6">
+      {topics.map(topic => (
+        <button
+          key={topic}
+          onClick={() => router.push(`/gallery?q=${topic}`)}
+          className="p-6 bg-blue-100 rounded-lg hover:bg-blue-200 text-lg font-semibold transition"
+        >
+          {topic}
+        </button>
+      ))}
     </div>
   )
 }

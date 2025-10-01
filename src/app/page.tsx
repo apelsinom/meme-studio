@@ -1,23 +1,52 @@
-'use client'
+import Image from 'next/image'
+import { PixabayDTO, PixabayImage, TMeme } from '@/shared/types/types'
+import Link from 'next/link'
 
-import { useRouter } from 'next/navigation'
+export const revalidate = false
 
-const topics = ['cats', 'dogs', 'cars', 'memes']
+export default async function HomePage() {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_PIXABAY_API_URL}?key=${process.env.NEXT_PUBLIC_PIXABAY_API_KEY}&q=cats&per_page=8`,
+    { cache: 'force-cache' },
+  )
 
-export default function HomePage() {
-  const router = useRouter()
+  if (!res.ok) {
+    throw new Error('Failed to fetch photos')
+  }
+  const data: PixabayDTO = await res.json()
+  const photos: Required<TMeme>[] = data.hits.map((hit: PixabayImage) => ({
+    id: hit.id.toString(),
+    title: hit.type,
+    description: hit.tags,
+    image: hit.previewURL,
+    createdAt: new Date().toISOString(),
+  }))
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-6 p-6">
-      {topics.map(topic => (
-        <button
-          key={topic}
-          onClick={() => router.push(`/gallery?q=${topic}`)}
-          className="p-6 bg-blue-100 rounded-lg hover:bg-blue-200 text-lg font-semibold transition"
-        >
-          {topic}
-        </button>
-      ))}
+    <div>
+      <p className="py-4">
+        Кликайте на понравившегося питомца, для добавления описания. Для выбора фотографий других
+        питомцев нужно перейти в галерею
+      </p>
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        {photos.map(photo => (
+          <Link
+            key={photo.id}
+            href={`editor?src=${encodeURIComponent(photo.image)}`}
+            className="border rounded-lg shadow-lg overflow-hidden hover:scale-105 transition-transform"
+          >
+            <h2>{photo.title}</h2>
+            <Image
+              width={100}
+              height={100}
+              src={photo.image}
+              alt={photo.title}
+              className="w-full aspect-square"
+            />
+            <p className="p-1 text-sm text-start line-clamp-2">{photo.description}</p>
+          </Link>
+        ))}
+      </div>
     </div>
   )
 }

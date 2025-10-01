@@ -34,7 +34,7 @@ export async function GET(req: Request) {
 export async function POST(request: Request) {
   try {
     const body = await request.json()
-    const { title, image } = body
+    const { title, image, description } = body
 
     if (!image) {
       return NextResponse.json({ error: 'image required' }, { status: 400 })
@@ -43,6 +43,7 @@ export async function POST(request: Request) {
     const newMeme: TMeme = {
       id: uuid(),
       title: title ?? 'Без названия',
+      description,
       image,
       createdAt: new Date().toISOString(),
     }

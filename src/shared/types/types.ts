@@ -1,6 +1,7 @@
 export type TMeme = {
   id: string
-  title: string
+  title?: string
+  description: string
   image: string
   createdAt?: string
 }
@@ -13,30 +14,31 @@ export type PixabayDTO = {
 
 export type PixabayImage = {
   id: number
-  collections: number
-  comments: number
-  downloads: number
+  pageURL: string
+  type: 'photo' | 'illustration' | 'vector'
+  tags: string
+  previewURL: string
+  previewWidth: number
+  previewHeight: number
+  webformatURL: string
+  webformatWidth: number
+  webformatHeight: number
+  largeImageURL: string
+  fullHDURL: string
+  imageURL: string
+  imageWidth: number
   imageHeight: number
   imageSize: number
-  imageWidth: number
+  views: number
+  downloads: number
+  likes: number
+  comments: number
+  user_id: number
+  user: string
+  userImageURL: string
+  collections: number
   isAiGenerated: boolean
   isGRated: boolean
   isLowQuality: boolean
-  largeImageURL: string
-  likes: number
   noAiTraining: boolean
-  pageURL: string
-  previewHeight: number
-  previewURL: string
-  previewWidth: number
-  tags: string
-  type: 'all' | 'photo' | 'illustration' | 'vector'
-  user: string
-  userImageURL: string
-  userURL: string
-  user_id: number
-  views: number
-  webformatHeight: number
-  webformatURL: string
-  webformatWidth: number
 }
