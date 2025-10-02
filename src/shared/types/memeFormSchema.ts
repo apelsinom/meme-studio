@@ -1,8 +1,8 @@
 import { z } from 'zod'
 
 export const memeFormSchema = z.object({
-  title: z.string().max(20, 'Максимум 50 символов').optional(),
-  description: z.string().min(1, 'Текст мема обязателен').max(20, 'Максимум 50 символов'),
+  title: z.string().max(20, 'Максимум 20 символов').optional(),
+  description: z.string().min(1, 'Текст мема обязателен').max(50, 'Максимум 50 символов'),
   imageUrl: z.string().nullish(),
   imageFile: (typeof FileList !== 'undefined'
     ? z.instanceof(FileList, { message: 'Загрузите файл изображения' })

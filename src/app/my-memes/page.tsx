@@ -69,7 +69,7 @@ export default function MyMemesPage() {
                 height={100}
                 width={100}
                 src={meme.image}
-                alt={meme.description}
+                alt={meme.title || meme.description || 'meme'}
                 className="w-full aspect-square object-cover"
               />
               <div className="p-4">

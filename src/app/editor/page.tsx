@@ -50,12 +50,10 @@ export default function EditorPage() {
         return
       }
 
-      const payload: TMeme = {
-        id: crypto.randomUUID(),
+      const payload: Omit<TMeme, 'id' | 'createdAt'> = {
         title: data.title,
         description: data.description,
         image: imageDataUrl,
-        createdAt: new Date().toISOString(),
       }
       await addMeme(payload).unwrap()
       reset({

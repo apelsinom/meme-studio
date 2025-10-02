@@ -20,8 +20,7 @@ export const memesApi = createApi({
       providesTags: ['Memes'],
     }),
 
-    // теперь addMeme принимает полный объект TMeme
-    addMeme: builder.mutation<TMeme, TMeme>({
+    addMeme: builder.mutation<TMeme, Omit<TMeme, 'id' | 'createdAt'>>({
       query: meme => ({
         url: '/memes',
         method: 'POST',
